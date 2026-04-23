@@ -1,5 +1,9 @@
+#Папки проекта
+
 /photos
 /photo-full
+/closed
+/open
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
