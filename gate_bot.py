@@ -15,11 +15,7 @@ from tflite_runtime.interpreter import Interpreter
 RTSP_URL = "rtsp://admin:Ancestral123@192.168.1.2:554/stream1"
 MODEL_PATH = "gate_model_v214.tflite"
 BOT_TOKEN = os.environ.get("TG_BOT_TOKEN")
-if not TOKEN:
-    raise RuntimeError("TG_BOT_TOKEN is not set")
 NOTIFY_CHAT_ID = os.environ.get("TG_CHAT_ID")
-if not TOKEN:
-    raise RuntimeError("TG_CHAT_ID is not set")
 CHECK_INTERVAL = 30
 COMMAND_POLL_INTERVAL = 1.0
 ROI = (1440, 340, 1740, 480)
