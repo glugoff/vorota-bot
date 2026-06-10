@@ -8,8 +8,8 @@ import time
 import threading
 import tempfile
 from datetime import datetime
-from tflite_runtime.interpreter import Interpreter
-
+#from tflite_runtime.interpreter import Interpreter
+from tensorflow.lite.python.interpreter import Interpreter
 
 # === Настройки ===
 RTSP_URL = "rtsp://admin:Ancestral123@192.168.1.2:554/stream1"
