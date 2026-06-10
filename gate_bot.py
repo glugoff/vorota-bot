@@ -27,12 +27,15 @@ latest_frame_timestamp = 0
 latest_frame_lock = threading.Lock()
 last_update_id = None
 
-try:
-    from tflite_runtime.interpreter import Interpreter
-    print("✅ Используем tflite-runtime")
-except ImportError:
-    print("❌ tflite-runtime не установлен")
-    sys.exit(1)
+# try:
+#     from tflite_runtime.interpreter import Interpreter
+#     print("✅ Используем tflite-runtime")
+# except ImportError:
+#     print("❌ tflite-runtime не установлен")
+#     sys.exit(1)
+
+from tensorflow.lite.python.interpreter import Interpreter
+print("✅ Используем TensorFlow Lite")
 
 def normalize_command(text):
     """Обрабатывает команды вида /photo@botname"""
