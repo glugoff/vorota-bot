@@ -248,3 +248,28 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+def send_volga_photo(chat_id):
+    try:
+        r = requests.get(VOLGA_IMAGE_URL, timeout=10)
+        r.raise_for_status()
+
+        url = f"https://api.telegram.org/bot{BOT_TOKEN}/sendPhoto"
+
+        files = {
+            "photo": ("volga.jpg", r.content, "image/jpeg")
+        }
+
+        data = {
+            "chat_id": chat_id,
+            "caption": "🌊 Волга"
+        }
+
+        resp = requests.post(url, files=files, data=data, timeout=20)
+
+        if not resp.ok:
+            print("Ошибка Telegram:", resp.text)
+
+    except Exception as e:
+        print("Ошибка получения камеры Волги:", e)
+        send_telegram_text(chat_id, "❌ Не удалось получить изображение с камеры Волги.")
