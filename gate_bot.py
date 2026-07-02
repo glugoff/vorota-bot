@@ -10,6 +10,10 @@ import tempfile
 from datetime import datetime
 #from tflite_runtime.interpreter import Interpreter
 from tensorflow.lite.python.interpreter import Interpreter
+import urllib3
+
+urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+
 
 # === Настройки ===
 RTSP_URL = "rtsp://admin:Ancestral123@192.168.1.2:554/stream1"
@@ -156,18 +160,14 @@ def send_volga_photo(chat_id):
     try:
         print(f"🌊 Загружаем {VOLGA_IMAGE_URL}")
 
-        import urllib3
-
-urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
-
-r = requests.get(
-    VOLGA_IMAGE_URL,
-    timeout=15,
-    headers={
-        "User-Agent": "Mozilla/5.0"
-    },
-    verify=False
-)
+        r = requests.get(
+            VOLGA_IMAGE_URL,
+            timeout=15,
+            headers={
+                "User-Agent": "Mozilla/5.0"
+            },
+            verify=False
+        )
 
         print("HTTP:", r.status_code)
         print("Content-Type:", r.headers.get("Content-Type"))
