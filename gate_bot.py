@@ -154,7 +154,19 @@ def send_telegram_photo(chat_id, photo_path, caption):
 
 def send_volga_photo(chat_id):
     try:
-        r = requests.get(VOLGA_IMAGE_URL, timeout=10)
+        print(f"🌊 Загружаем {VOLGA_IMAGE_URL}")
+
+        r = requests.get(
+            VOLGA_IMAGE_URL,
+            timeout=15,
+            headers={
+                "User-Agent": "Mozilla/5.0"
+            }
+        )
+
+        print("HTTP:", r.status_code)
+        print("Content-Type:", r.headers.get("Content-Type"))
+
         r.raise_for_status()
 
         url = f"https://api.telegram.org/bot{BOT_TOKEN}/sendPhoto"
@@ -170,12 +182,12 @@ def send_volga_photo(chat_id):
 
         resp = requests.post(url, files=files, data=data, timeout=20)
 
-        if not resp.ok:
-            print("Ошибка Telegram:", resp.text)
+        print("Telegram:", resp.status_code, resp.text)
 
     except Exception as e:
-        print("Ошибка получения камеры Волги:", e)
-        send_telegram_text(chat_id, "❌ Не удалось получить изображение с камеры Волги.")
+        import traceback
+        traceback.print_exc()
+        send_telegram_text(chat_id, f"❌ {e}")
 
 def capture_frame():
     for attempt in range(3):
