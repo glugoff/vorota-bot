@@ -156,13 +156,18 @@ def send_volga_photo(chat_id):
     try:
         print(f"🌊 Загружаем {VOLGA_IMAGE_URL}")
 
-        r = requests.get(
-            VOLGA_IMAGE_URL,
-            timeout=15,
-            headers={
-                "User-Agent": "Mozilla/5.0"
-            }
-        )
+        import urllib3
+
+urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+
+r = requests.get(
+    VOLGA_IMAGE_URL,
+    timeout=15,
+    headers={
+        "User-Agent": "Mozilla/5.0"
+    },
+    verify=False
+)
 
         print("HTTP:", r.status_code)
         print("Content-Type:", r.headers.get("Content-Type"))
