@@ -13,6 +13,7 @@ from tensorflow.lite.python.interpreter import Interpreter
 
 # === Настройки ===
 RTSP_URL = "rtsp://admin:Ancestral123@192.168.1.2:554/stream1"
+VOLGA_IMAGE_URL = "https://www.tatarmeteo.ru/pub/camera1.jpg"
 MODEL_PATH = "gate_model_v214.tflite"
 BOT_TOKEN = os.environ.get("TG_BOT_TOKEN")
 NOTIFY_CHAT_ID = os.environ.get("TG_CHAT_ID")
@@ -75,6 +76,8 @@ def check_telegram_commands():
                     send_frame_to_user(chat_id, full=True)
                 elif cmd in ('/gate', 'отправить фото ворот'):
                     send_frame_to_user(chat_id, full=False)
+                elif cmd in ('/volga', 'отправить фото Волги'):
+                    send_frame_to_user(chat_id, full=True)
                     
     except requests.exceptions.ConnectionError:
         print("⚠️ Нет интернета для опроса команд Telegram")
@@ -200,7 +203,8 @@ def set_bot_commands():
         url = f"https://api.telegram.org/bot{BOT_TOKEN}/setMyCommands"
         commands = [
             {"command": "photo", "description": "📸 Полный кадр"},
-            {"command": "gate", "description": "🚪 ROI ворот"}
+            {"command": "gate", "description": "🚪 ROI ворот"},
+            {"command": "volga", "description": "🌊 Волга"}
         ]
         requests.post(url, json={"commands": commands}, timeout=10)
     except:
